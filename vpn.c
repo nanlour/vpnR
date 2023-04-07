@@ -18,8 +18,8 @@
  * Uncomment first 2 lines to run as vpn client
  */
 
-// #define AS_CLIENT YES
-// #define SERVER_HOST ""
+//#define AS_CLIENT YES
+//#define SERVER_HOST "139.99.169.140"
 
 #define PORT 54345
 #define MTU 1400
@@ -96,7 +96,7 @@ void setup_route_table() {
   run("iptables -I FORWARD 1 -i tun0 -m state --state RELATED,ESTABLISHED -j ACCEPT");
   run("iptables -I FORWARD 1 -o tun0 -j ACCEPT");
   char cmd[1024];
-  snprintf(cmd, sizeof(cmd), "ip route add %s via $(ip route show 0/0 | sed -e 's/.* via \([^ ]*\).*/\1/')", SERVER_HOST);
+  snprintf(cmd, sizeof(cmd), "ip route add %s via $(ip route show 0/0 | sed -e 's/.* via \\([^ ]*\\).*/\\1/')", SERVER_HOST);
   run(cmd);
   run("ip route add 0/1 dev tun0");
   run("ip route add 128/1 dev tun0");
