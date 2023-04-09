@@ -122,7 +122,7 @@ void cleanup_route_table() {
   run("ip route del 0/1");
   run("ip route del 128/1");
 #else
-  run("iptables -t nat -D POSTROUTING -s 10.8.0.0/16 ! -d 10.8.0.0/16 -m comment --comment 'vpndemo' -j MASQUERADE");
+  //run("iptables -t nat -D POSTROUTING -s 10.8.0.0/16 ! -d 10.8.0.0/16 -m comment --comment 'vpndemo' -j MASQUERADE");
   run("iptables -D FORWARD -s 10.8.0.0/16 -m state --state RELATED,ESTABLISHED -j ACCEPT");
   run("iptables -D FORWARD -d 10.8.0.0/16 -j ACCEPT");
 #endif
