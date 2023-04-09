@@ -4,6 +4,11 @@
             "cwd": "/home/nanlour/vpnR",
             "binaryPath": "/home/nanlour/vpnR/vpn",
             "binaryArgs": []
+        },
+        {
+            "cwd": "/home/nanlour/vpnR",
+            "binaryPath": "/home/nanlour/vpnR/vpnClient",
+            "binaryArgs": []
         }
     ]
 }

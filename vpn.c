@@ -92,16 +92,16 @@ void setup_route_table() {
   run("sysctl -w net.ipv4.ip_forward=1");
 
 #ifdef AS_CLIENT
-  run("iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE");
-  run("iptables -I FORWARD 1 -i tun0 -m state --state RELATED,ESTABLISHED -j ACCEPT");
-  run("iptables -I FORWARD 1 -o tun0 -j ACCEPT");
+  //run("iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE");
+  //run("iptables -I FORWARD 1 -i tun0 -m state --state RELATED,ESTABLISHED -j ACCEPT");
+  //run("iptables -I FORWARD 1 -o tun0 -j ACCEPT");
   char cmd[1024];
   snprintf(cmd, sizeof(cmd), "ip route add %s via $(ip route show 0/0 | sed -e 's/.* via \\([^ ]*\\).*/\\1/')", SERVER_HOST);
   run(cmd);
   run("ip route add 0/1 dev tun0");
   run("ip route add 128/1 dev tun0");
 #else
-  run("iptables -t nat -A POSTROUTING -s 10.8.0.0/16 ! -d 10.8.0.0/16 -m comment --comment 'vpndemo' -j MASQUERADE");
+  //run("iptables -t nat -A POSTROUTING -s 10.8.0.0/16 ! -d 10.8.0.0/16 -m comment --comment 'vpndemo' -j MASQUERADE");
   run("iptables -A FORWARD -s 10.8.0.0/16 -m state --state RELATED,ESTABLISHED -j ACCEPT");
   run("iptables -A FORWARD -d 10.8.0.0/16 -j ACCEPT");
 #endif
@@ -113,9 +113,9 @@ void setup_route_table() {
  */
 void cleanup_route_table() {
 #ifdef AS_CLIENT
-  run("iptables -t nat -D POSTROUTING -o tun0 -j MASQUERADE");
-  run("iptables -D FORWARD -i tun0 -m state --state RELATED,ESTABLISHED -j ACCEPT");
-  run("iptables -D FORWARD -o tun0 -j ACCEPT");
+  //run("iptables -t nat -D POSTROUTING -o tun0 -j MASQUERADE");
+  //run("iptables -D FORWARD -i tun0 -m state --state RELATED,ESTABLISHED -j ACCEPT");
+  //run("iptables -D FORWARD -o tun0 -j ACCEPT");
   char cmd[1024];
   snprintf(cmd, sizeof(cmd), "ip route del %s", SERVER_HOST);
   run(cmd);
@@ -271,7 +271,7 @@ int main(int argc, char **argv) {
     FD_SET(udp_fd, &readset);
     int max_fd = max(tun_fd, udp_fd) + 1;
 
-    if (-1 == select(max_fd, &readset, NULL, NULL, NULL)) {
+     if (-1 == select(max_fd, &readset, NULL, NULL, NULL)) {
       perror("select error");
       break;
     }

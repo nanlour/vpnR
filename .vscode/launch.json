@@ -9,7 +9,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/vpn",
+            "program": "${workspaceFolder}/vpnClient",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
